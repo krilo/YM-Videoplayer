@@ -20,11 +20,13 @@ $ ->
 			Possible values for the options object
 			---------------------------------------
 
-			basepath:		The base for flash videoplayer .swf file
+			basepath:			The base for flash videoplayer .swf file
+			rendermode:		Force the videoplayer to render in a specific way
+
 
 		###
 
-		player = new ym.VideoPlayer(videos[i], ["basepath": "./flash/"])
+		player = new ym.VideoPlayer(videos[i], ["basepath": "./flash/", "rendermode": "html5"])
 		
 		# Set Play Button
 		playBtn = document.getElementById("playBtn")

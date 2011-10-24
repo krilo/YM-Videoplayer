@@ -9,6 +9,8 @@
 
       @rendermode = "html5"
       @rendermode = "flash" if @flashPlayer != false
+      if @options
+        @rendermode = @options[0].rendermode if @options[0].rendermode != undefined
       
       @video = @element
       @video = "Flash not ready" if @rendermode == "flash"
@@ -30,7 +32,11 @@
       container = document.getElementById(@element.parentNode.id)
       ym.utils.removeElement(@element)
 
-      flashvars = "initWidth="+flashWidth+"&initHeight="+flashHeight+"&debug=true&playerId="+@playerId+"&videoUrl="+"http://your-majesty.com/assets/videos/venge_case_reel.f4v&autoplay=false"
+      autoplay = false
+      autoplay = true if @element.getAttribute("autoplay") == "autoplay"
+
+      flashUrl = @element.getAttribute("data-flash-video")
+      flashvars = "initWidth="+flashWidth+"&initHeight="+flashHeight+"&debug=true&playerId="+@playerId+"&videoUrl="+flashUrl+"&autoplay="+autoplay
 
       flashDiv = document.createElement("div")
       flashDiv.innerHTML = "
