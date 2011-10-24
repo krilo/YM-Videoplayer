@@ -129,7 +129,8 @@ package com.yourmajesty.videoplayer {
 		private function doResize():void
 		{
 			//
-			//videoUI.doResize(w,h);
+			videoPlayer.width = stage.stageWidth;
+			videoPlayer.width = stage.stageHeight;
 			
 		}
 		
