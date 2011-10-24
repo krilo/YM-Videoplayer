@@ -40,8 +40,10 @@
     @getVideoPlayer = (playerId) ->
       i = 0
       while i < window.videoPlayers.length
-        console.log window.videoPlayers[i].playerId
+        video = window.videoPlayers[i] if(window.videoPlayers[i].playerId == playerId)
         i++
+        
+      return video
     
     @videoPlayerReady = (playerId) ->
       i = 0

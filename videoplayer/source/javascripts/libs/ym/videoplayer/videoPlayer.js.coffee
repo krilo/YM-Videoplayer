@@ -4,7 +4,6 @@
 
     constructor: ( @element, @options ) ->
 
-      @supportsTouch = "createTouch" of document
       @playerId = Math.random().toString(36).substr(2,9)
       @flashPlayer = ym.utils.getFlashVersion()
 
@@ -15,6 +14,7 @@
       @video = "Flash not ready" if @rendermode == "flash"
 
       @embeddFlash() if @rendermode == "flash"
+      @flashConnected = false;
 
       ym.utils.addVideoPlayer(@);
 
@@ -30,7 +30,7 @@
       container = document.getElementById(@element.parentNode.id)
       ym.utils.removeElement(@element)
 
-      flashvars = "initWidth="+flashWidth+"&initHeight="+flashHeight+"&debug=true&playerId="+@playerId
+      flashvars = "initWidth="+flashWidth+"&initHeight="+flashHeight+"&debug=true&playerId="+@playerId+"&videoUrl="+"http://your-majesty.com/assets/videos/venge_case_reel.f4v&autoplay=false"
 
       flashDiv = document.createElement("div")
       flashDiv.innerHTML = "
@@ -55,6 +55,7 @@
 
     flashReady: () ->
       @video = ym.utils.getFlashMovie("name_"+@playerId)
+      @flashConnected = true
 
 
     setVolume: (vol) ->
@@ -62,6 +63,8 @@
       # HTML 5
       if @rendermode == "html5"
         @video.volume = vol
+      else if @rendermode == "flash" && @flashConnected == true
+        @video.setVolume(vol)
 
     playVideo: () ->
       _t = @
@@ -72,7 +75,7 @@
         @progressInterval = setInterval( ->
           _t.update(_t)
         , 33)
-      else if @rendermode == "flash"
+      else if @rendermode == "flash" && @flashConnected == true
         @video.play()
 
     pauseVideo: () ->
@@ -81,18 +84,34 @@
       if @rendermode == "html5"
         @video.pause();
         clearInterval(@progressInterval);
+      else if @rendermode == "flash" && @flashConnected == true
+        @video.pause()
 
     update: (_t) ->
     
       # HTML 5
       if _t.rendermode == "html5"
         _t.progress = _t.video.currentTime / _t.video.duration
+      else if @rendermode == "flash" && @flashConnected == true
+        _t.progress = @video.getProgress()
 
     setPosition: (p) ->
       
       # HTML 5
       if @rendermode == "html5"
         @video.currentTime = @video.duration*p
+      else if @rendermode == "flash" && @flashConnected == true
+        @video.setProgress(p)
+    
+    getPosition: (p) ->
+      
+      # HTML 5
+      if @rendermode == "html5"
+        p = @video.currentTime
+      else if @rendermode == "flash" && @flashConnected == true
+       p = @video.getProgress()
+
+      return p
 
     getState: () ->
       
@@ -106,8 +125,7 @@
         else
           state= "playing"
       
-      # TODO: Proper states for the Flash Video 
-      else if @rendermode == "flash"
-        state = "paused"
+      else if @rendermode == "flash" && @flashConnected == true
+        state = @video.getState()
       
       return state

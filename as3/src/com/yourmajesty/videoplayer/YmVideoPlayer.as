@@ -47,11 +47,6 @@ package com.yourmajesty.videoplayer {
 				
 				flash.system.Security.allowDomain("*");
 				
-				var isAvailable:Boolean = ExternalInterface.available;
-           		var availTxt:TextField = new TextField();
-           		availTxt.text = isAvailable.toString();
-           		addChild(availTxt);
-				
 				// Catch Flashvars
 				paramObj = LoaderInfo(this.root.loaderInfo).parameters;
 				
@@ -61,22 +56,28 @@ package com.yourmajesty.videoplayer {
 					debugMode = true;
 				}
 				
-				// Init Videoplayer
-				videoPlayer = new VideoPlayer();
-				videoPlayer.init(paramObj["initWidth"],paramObj["initHeight"]);
-				
 				// Autoplay
 				var autoplay:Boolean = false;
 				if(paramObj["autoplay"] == "true"){
 					autoplay = true;
 				}
 				
+				// Init Videoplayer
+				videoPlayer = new VideoPlayer();
+				videoPlayer.init(paramObj["initWidth"],paramObj["initHeight"]);
+				videoPlayer.load(paramObj["videoUrl"], autoplay);
+				
 				// Go go gadget VideoPlayer
 				videoPlayer.smooth = true;
 				addChild(videoPlayer);
 				
 				// Add event listeners
-				ExternalInterface.addCallback("play", playVideo); 
+				ExternalInterface.addCallback("play", playVideo);
+				ExternalInterface.addCallback("pause", pauseVideo); 
+				ExternalInterface.addCallback("setVolume", setVolume); 
+				ExternalInterface.addCallback("getState", getState); 
+				ExternalInterface.addCallback("getProgress", getProgress); 
+				ExternalInterface.addCallback("setProgress", setProgress); 
 				
 				doResize();
 				
@@ -92,8 +93,32 @@ package com.yourmajesty.videoplayer {
 		
 		private function playVideo():void
 		{
-			ExternalInterface.call( "console.log" , "I should play");
-			videoPlayer.play();
+			videoPlayer.resume();
+		}
+		
+		private function pauseVideo():void
+		{
+			videoPlayer.pause();
+		}
+		
+		private function setVolume(vol:Number):void
+		{
+			videoPlayer.setVolume(vol);
+		}
+		
+		private function getState():String
+		{
+			return videoPlayer.getState();
+		}
+		
+		private function getProgress():Number
+		{
+			return videoPlayer.getProgress();
+		}
+		
+		private function setProgress(p:Number):void
+		{
+			videoPlayer.setProgress(p);
 		}
 		
 		private function stageResize(e:Event):void

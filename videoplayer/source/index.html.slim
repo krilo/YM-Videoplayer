@@ -3,17 +3,23 @@ title: Hello World
 ---
 
 #videoPlayer
-	video width="960" height="396"
-  		source src="http://video-js.zencoder.com/oceans-clip.mp4"  type="video/mp4" codecs="avc1.42E01E, mp4a.40.2"
-  		source src="http://video-js.zencoder.com/oceans-clip.webm" type="video/webm" codecs="vp8, vorbis"
-  		source src="http://video-js.zencoder.com/oceans-clip.ogv"  type="video/ogg" codecs="theora, vorbis"
-  	
-	#ui
-		a#playBtn href="#" Play
-		span  | 
-		a#pauseBtn href="#" Pause
+  video width="960" height="396" data-flash-video="http://your-majesty.com/assets/videos/venge_case_reel.f4v"
+    source src="http://video-js.zencoder.com/oceans-clip.mp4"  type="video/mp4" codecs="avc1.42E01E, mp4a.40.2"
+    source src="http://video-js.zencoder.com/oceans-clip.webm" type="video/webm" codecs="vp8, vorbis"
+    source src="http://video-js.zencoder.com/oceans-clip.ogv"  type="video/ogg" codecs="theora, vorbis"
 
-		#progressbar
-			#bar
+  #ui
+    a#playBtn href="#" Play
+    span  | 
+    a#pauseBtn href="#" Pause
+    span  | 
+    a#muteBtn href="#" Mute
+    span  | 
+    a#unmuteBtn href="#" Unmute
+    span  | 
+    a#setProgBtn href="#" Go to 50%
+
+  #progressbar
+    #bar
 
 

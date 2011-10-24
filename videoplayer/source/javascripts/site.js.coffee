@@ -43,6 +43,27 @@ $ ->
 			
 			player.pauseVideo()
 			return false
+
+		# Set Mute Button
+		pauseBtn = document.getElementById("muteBtn")
+		pauseBtn[(if @supportsTouch then "ontouchend" else "onmouseup")] = (event) ->
+			
+			player.setVolume(0)
+			return false
+		
+		# Set Unmute Button
+		pauseBtn = document.getElementById("unmuteBtn")
+		pauseBtn[(if @supportsTouch then "ontouchend" else "onmouseup")] = (event) ->
+			
+			player.setVolume(1)
+			return false
+
+		# Set Progress Button
+		pauseBtn = document.getElementById("setProgBtn")
+		pauseBtn[(if @supportsTouch then "ontouchend" else "onmouseup")] = (event) ->
+			
+			player.setPosition(0.5);
+			return false
 	
 		i++
 
