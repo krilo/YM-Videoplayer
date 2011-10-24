@@ -1,0 +1,33 @@
+//
+// Common variables and modules
+//
+
+// Fonts -----------------------------------------------------------------------
+
+$base-font-family:         Courier, sans-serif;
+$base-font-size:           10px;
+$base-line-height:         24px;
+$base-font-color:          #010101;
+$base-link-color:          #010101;
+$base-link-visited-color:  #010101;
+
+
+// Grid ------------------------------------------------------------------------
+
+$total-cols:         12;
+$col-width:          60px;
+$gutter-width:       20px;
+$side-gutter-width:  10px;
+
+
+// Imports ---------------------------------------------------------------------
+
+@import "modules/normalize";
+@import "compass";
+@import "susy";
+
+
+// Base rules ------------------------------------------------------------------
+
+@include normalize;
+@include establish-baseline;

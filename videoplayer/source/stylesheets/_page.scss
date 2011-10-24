@@ -1,0 +1,41 @@
+/**
+ * Base page styles
+ */
+
+body, select, input, textarea {
+  color: $base-font-color;
+}
+
+body {
+  @include container;
+}
+
+#masthead {
+  @include full;
+}
+
+#main {
+  @include full;
+
+  #progressbar {
+  	
+  	height: 16px;
+  	width: 960px;
+  	background: #EEE;
+  	display: block;	
+  	padding: 0px;
+
+  	#bar {
+  		width: 0px;
+  		height: 100%;
+  		background: #010101;
+  	}
+
+  }
+
+
+}
+
+#footer {
+  @include full;
+}
